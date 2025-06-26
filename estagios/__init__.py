@@ -46,7 +46,8 @@ app.register_blueprint(auth_bp)
 with app.app_context():
     db.create_all()
     from estagios.models import User, RoleEnum
-    # admin = User(email='estagioparceiro@gmail.com', senha='123456', role=RoleEnum.ADMIN)
-    # db.session.add(admin)
-    # db.session.commit()
-    # print("Admin criado")
+    if not User.query.filter_by(email='estagioparceiro@gmail.com').first():
+        admin = User(email='estagioparceiro@gmail.com', senha=os.getenv('ADMIN_PASSWORD'), role=RoleEnum.ADMIN)
+        db.session.add(admin)
+        db.session.commit()
+        # print("Admin criado")
