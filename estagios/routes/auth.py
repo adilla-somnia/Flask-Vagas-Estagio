@@ -10,7 +10,7 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth_bp.route('/cadastro', methods=['POST'])
 def cadastro_usuario():
-    dados = request.json
+    dados = request.get_json()
     novo_usuario = User(
         email = dados.get('email'),
         senha = dados.get('senha'),
