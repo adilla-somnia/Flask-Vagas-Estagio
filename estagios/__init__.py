@@ -2,12 +2,23 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 from flask_login import LoginManager
+from flask_cors import CORS
+import os
 
-
+load_dotenv()
 app = Flask(__name__)
-app.config.update(dotenv_values('estagios/.env'))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+CORS(app)
 mail = Mail(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -35,7 +46,7 @@ app.register_blueprint(auth_bp)
 with app.app_context():
     db.create_all()
     from estagios.models import User, RoleEnum
-    # admin = User(email='xavierbruna9@gmail.com', senha='123456', role=RoleEnum.ADMIN)
+    # admin = User(email='estagioparceiro@gmail.com', senha='123456', role=RoleEnum.ADMIN)
     # db.session.add(admin)
     # db.session.commit()
     # print("Admin criado")

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_mail import Message
-from estagios import db
+from estagios import db, mail
 from estagios.models import Estudante, Vaga
 
 candidatura_bp = Blueprint('candidatura', __name__, url_prefix='/candidatura')
@@ -31,16 +31,16 @@ def criar_candidatura():
             sender=("Estágio Parceiro | IFPE", "estagioparceiro@gmail.com"),
             recipients=[estudante.user_email],
             body=f"""
-Olá, {estudante.nome}!
+                    Olá, {estudante.nome}!
 
-Você se candidatou com sucesso à vaga "{vaga.titulo}".
+                    Você se candidatou com sucesso à vaga "{vaga.titulo}".
 
-Seu currículo foi encaminhado à empresa. Link informado:
-{estudante.curriculo_profissional_link}
+                    Seu currículo foi encaminhado à empresa. Link informado:
+                    {estudante.curriculo_profissional_link}
 
-Boa sorte!
+                    Boa sorte!
 
-Equipe Estágio Parceiro | IFPE
+                    Equipe Estágio Parceiro | IFPE
             """
         )
         mail.send(msg)
