@@ -38,7 +38,7 @@ class Empresa(db.Model):
     descricao = db.Column(db.Text)
     # liberada = db.Column(db.Boolean, default=False) acho que não vai precisar mais
     telefone = db.Column(db.String(20), nullable=False)
-    email = email = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     # Uma empresa pode ter várias vagas
     vagas = db.relationship('Vaga', backref='empresa', lazy=True)
 
