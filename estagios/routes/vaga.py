@@ -109,3 +109,9 @@ def deletar_vaga(vaga_id):
     except Exception as e:
         db.session.rollback()
         return jsonify({'erro': str(e)}), 400
+
+
+@vaga_bp.route('/total-vagas', methods=['GET'])
+def totalVagas():
+    vagas = Vaga.query.count()
+    return jsonify({'vagas': vagas})

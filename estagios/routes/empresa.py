@@ -103,3 +103,8 @@ def deletar_empresa(id):
         db.session.delete(empresa)
         db.session.commit()
         return jsonify({'mensagem': 'Empresa deletada com sucesso'})
+
+@empresa_bp.route('/total-empresas', methods=['GET'])
+def totalEmpresas():
+    empresas = Empresa.query.count()
+    return jsonify({'empresas': empresas})

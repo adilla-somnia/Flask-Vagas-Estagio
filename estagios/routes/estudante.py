@@ -82,3 +82,8 @@ def excluir_dados_estudante(user_id):
         db.session.commit()
 
         return jsonify({'mensagem': 'Dados do estudante excluídos com sucesso'})
+
+@estudante_bp.route('/total-estudantes', methods=['GET'])
+def totalEstudantes():
+    estudantes = Estudante.query.count()
+    return jsonify({'estudantes': estudantes})
