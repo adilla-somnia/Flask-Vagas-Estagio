@@ -7,7 +7,7 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 @admin_bp.route('/criar-admin', methods=['POST'])
 @login_required
 def criar_admin():
-    if current_user.role != RoleEnum.ADMIN:
+    if current_user.role.value != 'admin':
         return jsonify({'mensagem': 'Acesso negado.'})
     else:
         dados = request.get_json()
@@ -23,3 +23,11 @@ def criar_admin():
         db.session.commit()
 
         return jsonify({'mensagem': 'Novo admin criado com sucesso'}), 201
+
+# @admin_bp.route('/mudar-senha-admin', methods=['PUT'])
+# @login_required
+# def mudarSenha():
+#     if current_user.role != RoleEnum.ADMIN:
+#         return jsonify({'mensagem': 'Acesso negado.'})
+#     else:
+#         request.get_json()
