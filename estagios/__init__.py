@@ -25,7 +25,7 @@ migrate = Migrate(app, db)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-login_manager.login_view = 'auth_bp.login'
+login_manager.login_view = 'auth.login'
 
 from .models import User, RoleEnum # <-- Mova esta importação para aqui ou importe db/bcrypt/mail onde precisar nos models
 @login_manager.user_loader
