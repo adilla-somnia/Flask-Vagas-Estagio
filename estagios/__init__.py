@@ -26,6 +26,20 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 login_manager.login_view = 'auth.login'
+@login_manager.unauthorized_handler
+def unauthorized():
+    is_api_request = (
+        request.is_json or
+        request.headers.get('Content-Type') == 'application/json' or
+        request.headers.get('Accept') == 'application/json' or
+        request.blueprint == 'admin' 
+    )
+
+    if is_api_request:
+        return jsonify({'mensagem': 'Você precisa estar logado para acessar este recurso.', 'codigo_erro': 401}), 401
+    else:
+        return redirect(url_for('auth.login', next=request.url))
+
 
 from .models import User, RoleEnum # <-- Mova esta importação para aqui ou importe db/bcrypt/mail onde precisar nos models
 @login_manager.user_loader
