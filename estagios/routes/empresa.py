@@ -108,3 +108,9 @@ def deletar_empresa(id):
 def totalEmpresas():
     empresas = Empresa.query.count()
     return jsonify({'empresas': empresas})
+
+@empresa_bp.route('/nome-empresas', methods=['GET'])
+def listar_nomes_empresas():
+    empresas = Empresa.query.all()
+    nomes = [empresa.nome for empresa in empresas]
+    return jsonify(nomes)
