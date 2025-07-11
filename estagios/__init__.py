@@ -18,6 +18,9 @@ app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['SECRET_KEY'] =  '123456789' ##os.getenv('SECRET_KEY')
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = True
+
 CORS(app, supports_credentials=True)
 mail = Mail(app)
 db = SQLAlchemy(app)
@@ -41,7 +44,7 @@ def unauthorized():
         return redirect(url_for('auth.login', next=request.url))
 
 
-from .models import User, RoleEnum # <-- Mova esta importação para aqui ou importe db/bcrypt/mail onde precisar nos models
+from .models import User, RoleEnum 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
