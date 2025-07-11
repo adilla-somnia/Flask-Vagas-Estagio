@@ -112,5 +112,5 @@ def totalEmpresas():
 @empresa_bp.route('/nome-empresas', methods=['GET'])
 def listar_nomes_empresas():
     empresas = Empresa.query.all()
-    nomes = [empresa.nome for empresa in empresas]
-    return jsonify(nomes)
+    resultado = [{'id': empresa.id, 'nome': empresa.nome} for empresa in empresas]
+    return jsonify(resultado)
