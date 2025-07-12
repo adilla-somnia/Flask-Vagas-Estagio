@@ -3,6 +3,7 @@ from flask_mail import Message
 from estagios import db, mail
 from estagios.models import Estudante, Vaga
 from flask_cors import CORS
+from flask_login import login_required, current_user
 
 candidatura_bp = Blueprint('candidatura', __name__, url_prefix='/candidatura')
 CORS(candidatura_bp, supports_credentials=True)
