@@ -2,18 +2,19 @@ from flask import Blueprint, request, jsonify
 from flask_mail import Message
 from estagios import db, mail
 from estagios.models import Estudante, Vaga
-from flask_cors import CORS
+from flask_cors import cross_origin
 from flask_login import login_required, current_user
 
 candidatura_bp = Blueprint('candidatura', __name__, url_prefix='/candidatura')
-CORS(candidatura_bp, supports_credentials=True)
 
 # Criar candidatura (estudante se candidata a uma vaga)
 @candidatura_bp.route('/', methods=['OPTIONS', 'POST'])
-@login_required
+@cross_origin(suport_credentials=True)
 def criar_candidatura():
     if request.method == 'OPTIONS':
         return '', 200
+    if not current_user.is_authenticated:
+        return jsonify({'erro': 'Não autorizado'}), 401
     dados = request.get_json()
     estudante_id = dados.get('estudante_id')
     vaga_id = dados.get('vaga_id')
