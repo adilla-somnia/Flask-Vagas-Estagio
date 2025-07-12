@@ -7,9 +7,9 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 @admin_bp.route('/criar-admin', methods=['POST'])
 @login_required
 def criar_admin():
-    # if current_user.role.value != 'admin':
-    #     return jsonify({'mensagem': 'Acesso negado.'})
-    # else:
+    if current_user.role.value != 'admin':
+        return jsonify({'mensagem': 'Acesso negado.'})
+    else:
         dados = request.get_json()
         if User.query.filter_by(email = dados.get('email')).first():
             return jsonify({'erro': 'Email já cadastrado'}), 409

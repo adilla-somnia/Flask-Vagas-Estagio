@@ -40,8 +40,6 @@ def unauthorized():
 
     if is_api_request:
         return jsonify({'mensagem': 'Você precisa estar logado para acessar este recurso.', 'codigo_erro': 401}), 401
-    else:
-        return redirect(url_for('auth.login', next=request.url))
 
 
 from .models import User, RoleEnum 
