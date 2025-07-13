@@ -23,7 +23,7 @@ def criar_candidatura():
     vaga = Vaga.query.get(vaga_id)
 
     if not estudante or not vaga:
-        return jsonify({'erro': 'Estudante ou vaga não encontrada'}), 404
+        return jsonify({'erro': f'Estudante ou vaga não encontrada {estudante, vaga}'}), 404
 
     if vaga in estudante.vagas:
         return jsonify({'erro': 'Estudante já se candidatou a essa vaga'}), 409
