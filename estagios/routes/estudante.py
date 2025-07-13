@@ -39,11 +39,13 @@ def pegar_dados_estudante(user_id):
         return jsonify({'erro': 'Dados do estudante não encontrados'}), 404
 
     return jsonify({
+        'estudante_id': estudante.id,
         'nome': estudante.nome,
-        'curriculo_profissional_link': estudante.curriculo_profissional_link,
         'telefone': estudante.telefone,
         'curso': estudante.curso,
-        'periodo': estudante.periodo
+        'periodo': estudante.periodo,
+        'email': estudante.user_email,
+        'curriculo_profissional_link': estudante.curriculo_profissional_link
     })
 
 @estudante_bp.route('/<int:user_id>', methods=['PUT'])
