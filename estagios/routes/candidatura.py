@@ -11,10 +11,10 @@ candidatura_bp = Blueprint('candidatura', __name__, url_prefix='/candidatura')
 @candidatura_bp.route("/", methods=['OPTIONS', 'POST'])
 @cross_origin(suport_credentials=True)
 def criar_candidatura():
-    if request.method == 'OPTIONS':
-        return '', 200
-    if not current_user.is_authenticated:
-        return jsonify({'erro': 'Não autorizado'}), 401
+    # if request.method == 'OPTIONS':
+    #     return '', 200
+    # if not current_user.is_authenticated:
+    #     return jsonify({'erro': 'Não autorizado'}), 401
     dados = request.get_json()
     estudante_id = dados.get('estudante_id')
     vaga_id = dados.get('vaga_id')
