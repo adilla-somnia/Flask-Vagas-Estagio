@@ -9,7 +9,7 @@ candidatura_bp = Blueprint('candidatura', __name__, url_prefix='/candidatura')
 
 # Criar candidatura (estudante se candidata a uma vaga)
 @candidatura_bp.route("/", methods=['OPTIONS', 'POST'])
-@cross_origin(suport_credentials=True)
+@cross_origin(supports_credentials=True)
 def criar_candidatura():
     # if request.method == 'OPTIONS':
     #     return '', 200
