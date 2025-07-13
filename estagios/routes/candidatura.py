@@ -16,8 +16,8 @@ def criar_candidatura():
     # if not current_user.is_authenticated:
     #     return jsonify({'erro': 'Não autorizado'}), 401
     dados = request.get_json()
-    estudante_id = dados.get('estudante_id')
-    vaga_id = dados.get('vaga_id')
+    estudante_id = int(dados.get('estudante_id'))
+    vaga_id = int(dados.get('vaga_id'))
 
     estudante = Estudante.query.get(estudante_id)
     vaga = Vaga.query.get(vaga_id)
