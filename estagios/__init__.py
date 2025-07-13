@@ -21,25 +21,20 @@ app.config['SECRET_KEY'] =  '123456789' ##os.getenv('SECRET_KEY')
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = True
 
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True, resources={
+    r"/*": {"origins": ["http://127.0.0.1:5500", "http://localhost:5500"]}
+})
+
 mail = Mail(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-login_manager.login_view = 'auth.login'
+# login_manager.login_view = 'auth.login'
 @login_manager.unauthorized_handler
 def unauthorized():
-    is_api_request = (
-        request.is_json or
-        request.headers.get('Content-Type') == 'application/json' or
-        request.headers.get('Accept') == 'application/json' or
-        request.blueprint == 'admin' 
-    )
-
-    if is_api_request:
-        return jsonify({'mensagem': 'Você precisa estar logado para acessar este recurso.', 'codigo_erro': 401}), 401
+    return jsonify({'mensagem': 'Você precisa estar logado para acessar este recurso.', 'codigo_erro': 401}), 401
 
 
 from .models import User, RoleEnum 
