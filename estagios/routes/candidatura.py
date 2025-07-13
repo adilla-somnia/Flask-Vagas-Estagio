@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 candidatura_bp = Blueprint('candidatura', __name__, url_prefix='/candidatura')
 
 # Criar candidatura (estudante se candidata a uma vaga)
-@candidatura_bp.route('/', methods=['OPTIONS', 'POST'])
+@candidatura_bp.route("/", methods=['OPTIONS', 'POST'])
 @cross_origin(suport_credentials=True)
 def criar_candidatura():
     if request.method == 'OPTIONS':
@@ -35,27 +35,26 @@ def criar_candidatura():
     try:
         msg = Message(
             subject=f"Novo Candidato para a Vaga: {vaga.titulo}",
-            sender=("Estágio Parceiro | IFPE", "estagioparceiro@gmail.com"),
+            sender=('Estágio Parceiro | IFPE', 'estagioparceiro@gmail.com'),
             recipients=[vaga.empresa.email],
             body=f"""
-Olá, {vaga.empresa.nome}!
+                Olá, {vaga.empresa.nome}!
 
-O estudante {estudante.nome} acabou de se candidatar à sua vaga de estágio "{vaga.titulo}".
+                O estudante {estudante.nome} acabou de se candidatar à sua vaga de estágio "{vaga.titulo}".
 
-Dados do candidato:
-- Nome: {estudante.nome}
-- Curso: {estudante.curso}
-- Período: {estudante.periodo}
-- Telefone: {estudante.telefone}
-- E-mail: {estudante.user_email}
+                Dados do candidato:
+                - Nome: {estudante.nome}
+                - Curso: {estudante.curso}
+                - Período: {estudante.periodo}
+                - Telefone: {estudante.telefone}
+                - E-mail: {estudante.user_email}
 
-Currículo profissional:
-{estudante.curriculo_profissional_link}
+                Currículo profissional:
+                {estudante.curriculo_profissional_link}
 
-Atenciosamente,
-Equipe Estágio Parceiro | IFPE
-            """
-        )
+                Atenciosamente,
+                Equipe Estágio Parceiro | IFPE
+            """)
         mail.send(msg)
     except Exception as e:
         return jsonify({'mensagem': 'Candidatura criada, mas o envio do e-mail para a empresa falhou.', 'erro': str(e)}), 500
