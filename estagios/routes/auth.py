@@ -3,7 +3,7 @@ from estagios.models import User, RoleEnum
 from flask import Blueprint, request, jsonify
 from flask_mail import Message
 import random 
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -89,6 +89,4 @@ def mudar_senha():
 @auth_bp.route('/usuario')
 @login_required
 def get_logged_in_user():
-    dados = request.get_json()
-    email = dados.get('email')
-    return jsonify({'email': email})
+    return jsonify({'email': current_user.email})
