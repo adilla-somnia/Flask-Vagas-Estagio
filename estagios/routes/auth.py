@@ -71,7 +71,7 @@ def mudar_senha():
         return jsonify({'error': 'Preencha todos os campos'}), 400
 
     # Verifica se a senha atual está correta
-    if not check_password_hash(current_user.password_hash, current_password):
+    if not check_password_hash(current_user.senha, current_password):
         return jsonify({'error': 'Senha atual incorreta'}), 401
 
     # Opcional: regras para a nova senha
@@ -79,7 +79,7 @@ def mudar_senha():
         return jsonify({'error': 'A nova senha deve ter pelo menos 6 caracteres'}), 400
 
     # Atualiza a senha
-    current_user.password_hash = generate_password_hash(new_password)
+    current_user.senha = generate_password_hash(new_password)
     
     # Salva no banco
     db.session.commit()
