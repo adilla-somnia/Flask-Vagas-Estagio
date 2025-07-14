@@ -86,7 +86,7 @@ def mudar_senha():
 
     return jsonify({'message': 'Senha alterada com sucesso'}), 200
 
-@app.route('/usuario')
+@auth_bp.route('/usuario')
 @login_required
 def get_logged_in_user():
     return jsonify({'email': current_user.email})
