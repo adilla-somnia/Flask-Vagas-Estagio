@@ -3,7 +3,8 @@ from estagios.models import User, RoleEnum
 from flask import Blueprint, request, jsonify
 from flask_mail import Message
 import random 
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
+from werkzeug.security import check_password_hash, generate_password_hash
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -57,3 +58,30 @@ def login():
 def logout():
     logout_user()
     return jsonify({'mensagem': 'Logout efetuado com sucesso'})
+
+@auth_bp.route('/mudar-senha', methods=['POST'])
+@login_required
+def mudar_senha():
+    data = request.get_json()
+    
+    current_password = data.get('current_password')
+    new_password = data.get('new_password')
+    
+    if not current_password or not new_password:
+        return jsonify({'error': 'Preencha todos os campos'}), 400
+
+    # Verifica se a senha atual está correta
+    if not check_password_hash(current_user.password_hash, current_password):
+        return jsonify({'error': 'Senha atual incorreta'}), 401
+
+    # Opcional: regras para a nova senha
+    if len(new_password) < 6:
+        return jsonify({'error': 'A nova senha deve ter pelo menos 6 caracteres'}), 400
+
+    # Atualiza a senha
+    current_user.password_hash = generate_password_hash(new_password)
+    
+    # Salva no banco
+    db.session.commit()
+
+    return jsonify({'message': 'Senha alterada com sucesso'}), 200
