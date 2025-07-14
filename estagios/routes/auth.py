@@ -85,3 +85,8 @@ def mudar_senha():
     db.session.commit()
 
     return jsonify({'message': 'Senha alterada com sucesso'}), 200
+
+@app.route('/usuario')
+@login_required
+def get_logged_in_user():
+    return jsonify({'email': current_user.email})
