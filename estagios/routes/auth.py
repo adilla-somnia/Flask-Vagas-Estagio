@@ -89,4 +89,6 @@ def mudar_senha():
 @auth_bp.route('/usuario')
 @login_required
 def get_logged_in_user():
-    return jsonify({'email': current_user.email})
+    dados = request.get_json()
+    email = dados.get('email')
+    return jsonify({'email': email})
