@@ -124,7 +124,7 @@ def detalhes_vaga_admin(vaga_id):
     vaga = Vaga.query.get_or_404(vaga_id)
 
     candidatos = []
-    for estudante in vaga.estudantes
+    for estudante in vaga.estudantes:
     candidatos.append({
         'id': estudante.id,
         'nome': estudante.nome,
