@@ -5,6 +5,7 @@ from flask_mail import Message
 import random 
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_cors import cross_origin
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -60,6 +61,7 @@ def logout():
     return jsonify({'mensagem': 'Logout efetuado com sucesso'})
 
 @auth_bp.route('/mudar-senha', methods=['POST'])
+@cross_origin(supports_credentials=True)
 @login_required
 def mudar_senha():
     data = request.get_json()
