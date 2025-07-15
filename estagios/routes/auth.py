@@ -13,9 +13,10 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 @auth_bp.route('/cadastro', methods=['POST'])
 def cadastro_usuario():
     dados = request.get_json()
+    senha = dados.get('senha')
     novo_usuario = User(
         email = dados.get('email'),
-        senha = dados.get('senha'),
+        senha = generate_password_hash(senha),
         role = RoleEnum.ESTUDANTE
     )
     db.session.add(novo_usuario)
@@ -49,7 +50,7 @@ def login():
 
     user = User.query.filter_by(email=email).first()
 
-    if not user or user.senha != senha:
+    if not user or not check_password_hash(user.senha, senha):
         return jsonify({'erro': 'Credenciais inválidas'}), 401
 
     login_user(user)  
