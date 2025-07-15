@@ -125,13 +125,13 @@ def detalhes_vaga_admin(vaga_id):
 
     candidatos = []
     for estudante in vaga.estudantes:
-    candidatos.append({
-        'id': estudante.id,
-        'nome': estudante.nome,
-        'curso': estudante.curso,
-        'periodo': estudante.periodo,
-        'telefone': estudante.telefone,
-        'curriculo': estudante.curriculo_profissional_link
+        candidatos.append({
+            'id': estudante.id,
+            'nome': estudante.nome,
+            'curso': estudante.curso,
+            'periodo': estudante.periodo,
+            'telefone': estudante.telefone,
+            'curriculo': estudante.curriculo_profissional_link
     })
 
     resposta = {
