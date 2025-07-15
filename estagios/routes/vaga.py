@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from estagios import db
-from estagios.models import Vaga, Empresa, RoleEnum
+from estagios.models import Vaga, Empresa, RoleEnum, Estudante
 
 vaga_bp = Blueprint('vaga', __name__, url_prefix='/vaga')
 
@@ -115,3 +115,34 @@ def deletar_vaga(vaga_id):
 def totalVagas():
     vagas = Vaga.query.count()
     return jsonify({'vagas': vagas})
+
+#adicionandoooo
+
+@vaga_bp.route('/admin/vagas/<int:vaga_id>', methods=['GET'])
+@login_required
+def detalhes_vaga_admin(vaga_id):
+    vaga = Vaga.query.get_or_404(vaga_id)
+
+    candidatos = []
+    for estudante in vaga.estudantes
+    candidatos.append({
+        'id': estudante.id,
+        'nome': estudante.nome,
+        'curso': estudante.curso,
+        'periodo': estudante.periodo,
+        'telefone': estudante.telefone,
+        'curriculo': estudante.curriculo_profissional_link
+    })
+
+    resposta = {
+        'id': vaga.id,
+        'titulo': vaga.titulo,
+        'descricao': vaga.descricao,
+        'valor_bolsa': vaga.valor_bolsa,
+        'cursos': vaga.cursos,
+        'data_criacao': vaga.data_criacao.strftime('%d/%m/%Y'),
+        'empresa_id': vaga.empresa_id,
+        'candidatos': candidatos
+    }
+    
+    return jsonify(resposta)
