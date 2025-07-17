@@ -115,13 +115,6 @@ def listar_nomes_empresas():
     resultado = [{'id': empresa.id, 'nome': empresa.nome} for empresa in empresas]
     return jsonify(resultado)
 
-# rotas/empresa.py
-
-from flask import Blueprint, jsonify
-from app.models import Empresa  # ajuste conforme sua estrutura
-
-empresa_bp = Blueprint('empresa', __name__, url_prefix='/empresa')
-
 @empresa_bp.route('/listar', methods=['GET'])
 def listar_empresas():
     empresas = Empresa.query.all()
