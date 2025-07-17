@@ -130,3 +130,28 @@ def listar_empresas():
         }
         for empresa in empresas
     ])
+
+@empresa_bp.route('/<int:empresa_id>', methods=['GET'])
+def detalhar_empresa(empresa_id):
+    empresa = Empresa.query.get_or_404(empresa_id)
+
+    return jsonify({
+        'id': empresa.id,
+        'nome': empresa.nome,
+        'descricao': empresa.descricao,
+        'CNPJ': empresa.CNPJ,
+        'telefone': empresa.telefone,
+        'email': empresa.email,
+        'endereco': empresa.endereco,
+        'vagas': [
+            {
+                'id': vaga.id,
+                'titulo': vaga.titulo,
+                'descricao': vaga.descricao,
+                'valor_bolsa': vaga.valor_bolsa,
+                'cursos': vaga.cursos,
+                'data_criacao': vaga.data_criacao.isoformat()
+            }
+            for vaga in empresa.vagas
+        ]
+    })
