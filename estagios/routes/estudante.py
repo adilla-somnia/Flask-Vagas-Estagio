@@ -89,3 +89,16 @@ def excluir_dados_estudante(user_id):
 def totalEstudantes():
     estudantes = Estudante.query.count()
     return jsonify({'estudantes': estudantes})
+
+@estudante_bp.route('/estudantes', methods=['GET'])
+def listar_estudantes():
+    estudantes = Estudante.query.all()
+    return jsonify([
+        {
+            'id': estudante.id,
+            'nome': estudante.nome,
+            'email': estudante.email,
+            'curso': estudante.curso,
+            'periodo': estudante.periodo,
+        } for estudante in estudantes
+    ])
