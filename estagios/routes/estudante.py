@@ -102,3 +102,17 @@ def listar_estudantes():
             'periodo': estudante.periodo,
         } for estudante in estudantes
     ])
+
+@estudante_bp.route('/estudante/<int:estudante_id>/candidaturas')
+def listar_candidaturas(estudante_id):
+    candidaturas = Candidatura.query.filter_by(estudante_id=estudante_id).all()
+
+    return jsonify([
+        {
+            "vaga_id": c.vaga_id,
+            "vaga_titulo": c.vaga.titulo,
+            "empresa": c.vaga.empresa.nome,
+            "data_candidatura": c.data_candidatura.strftime('%d/%m/%Y')
+        }
+        for c in candidaturas
+    ])
