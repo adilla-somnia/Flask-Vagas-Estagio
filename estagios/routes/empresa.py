@@ -131,7 +131,7 @@ def listar_empresas():
         for empresa in empresas
     ])
 
-@empresa_bp.route('/<int:empresa_id>', methods=['GET'])
+@empresa_bp.route('/detalhes/<int:empresa_id>', methods=['GET'])
 def detalhar_empresa(empresa_id):
     empresa = Empresa.query.get_or_404(empresa_id)
 
