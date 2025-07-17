@@ -97,7 +97,7 @@ def listar_estudantes():
         {
             'id': estudante.id,
             'nome': estudante.nome,
-            'email': estudante.email,
+            'email': estudante.user_email,
             'curso': estudante.curso,
             'periodo': estudante.periodo,
         } for estudante in estudantes
