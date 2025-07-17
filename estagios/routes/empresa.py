@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from estagios import db
-from estagios.models import Empresa, RoleEnum
+from estagios.models import Empresa, RoleEnum, Vaga
 from sqlalchemy import func
 from flask_login import login_required, current_user
 
@@ -135,6 +135,8 @@ def listar_empresas():
 def detalhar_empresa(empresa_id):
     empresa = Empresa.query.get_or_404(empresa_id)
 
+    vagas = Vaga.query.filter_by(empresa_id=empresa.id).all()
+
     return jsonify({
         'id': empresa.id,
         'nome': empresa.nome,
@@ -148,10 +150,8 @@ def detalhar_empresa(empresa_id):
                 'id': vaga.id,
                 'titulo': vaga.titulo,
                 'descricao': vaga.descricao,
-                'valor_bolsa': vaga.valor_bolsa,
-                'cursos': vaga.cursos,
-                'data_criacao': vaga.data_criacao.isoformat()
+                'data_criacao': vaga.data_criacao.strftime('%d/%m/%Y')
             }
-            for vaga in empresa.vagas
+            for vaga in vagas
         ]
     })
