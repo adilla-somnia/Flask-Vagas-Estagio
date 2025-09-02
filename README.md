@@ -1,38 +1,35 @@
+# Partner Companies Registration System API
 
-# API Sistema de Cadastro de Empresas Parceiras
+This API was developed to facilitate integration between administrators, companies, and students at IFPE Campus Jaboatão. It provides RESTful endpoints that enable centralized and organized management of partner companies, job postings, and student applications.
 
-A API do Sistema de Cadastro de Empresas Parceiras foi desenvolvida para facilitar a integração entre administradores, empresas e alunos do IFPE Campus Jaboatão. Ela fornece endpoints RESTful que permitem o gerenciamento de empresas, publicação de vagas e candidaturas de estudantes de forma centralizada e organizada.
+## Features
 
+Registration and management of partner companies
 
-## Funcionalidades
+Creation, listing, and removal of job vacancies linked to companies
 
-- Cadastro e gerenciamento de empresas parceiras
-- Criação, listagem e remoção de vagas vinculadas às empresas
-- Registro de alunos e envio de candidaturas às vagas disponíveis
-- Listagem pública de vagas para acesso livre pelos estudantes
+Student registration and application submission for available vacancies
 
+Public listing of job vacancies accessible to students
 
-## Stack utilizada
+## Tech Stack
 
-**Back-end:** Python, Flask
+**Back-end: Python, Flask**
 
-
-## Contribuindo com o Projeto
-
-Criando o ambiente virtual e instalando dependências
-
+## Contributing to the Project
+Setting up a virtual environment and installing dependencies
 ```bash
   python -m venv myvenv
-  . myvenv/Scripts/activate (ativando)
+  . myvenv/Scripts/activate # activate the virtual environment
   pip install requirements.txt
 ```
-Salvando novas dependências no requirements.txt
 
+Saving new dependencies to requirements.txt
 ```bash
-  pip freeze > requirements.txt (dentro do seu ambiente virtual)
+  pip freeze > requirements.txt # run this inside the virtual environment
 ```
-Estrutura do Projeto
 
+## Project Structure
 ```
 Flask-Vagas-Estagio/
 ├── estagios/
@@ -41,17 +38,18 @@ Flask-Vagas-Estagio/
 │   │   └── __init__.py
 │   ├── models.py
 │   ├── rotas.py
-│   └── .env          ← Arquivo de variáveis de ambiente (colocar aqui)
+│   └── .env          ← Environment variables file (place it here)
 ├── instance/
-├── venv/             ← Ambiente virtual (criar na raiz do projeto)
+├── venv/             ← Virtual environment (create it at the project root)
 ├── .gitignore
 ├── main.py
 ├── README.md
 ├── requirements.txt
 ```
-## Variáveis de Ambiente
 
-Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+## Environment Variables
+
+To run this project, you need to define the following environment variables in your .env file:
 
 `SQLALCHEMY_DATABASE_URI`
 
